@@ -703,7 +703,7 @@ module.exports = function FpsUtils2(mod) {
         })
     })
 
-    mod.hook('S_SPAWN_NPC', 10, (event) => {
+    mod.hook('S_SPAWN_NPC', 11, (event) => {
         if (mod.settings.hideAllSummons && event.huntingZoneId === 1023) {
             if (mod.settings.keepMySummons && mod.game.me.is(event.owner)) return true;
             hiddenNpcs[event.gameId] = event; // apparently NPCs get feared and crash the client too
@@ -726,14 +726,14 @@ module.exports = function FpsUtils2(mod) {
         delete hiddenNpcs[event.gameId];
     });
 
-    mod.hook('S_EACH_SKILL_RESULT', 12, { order: 200 }, (event) => {
+    mod.hook('S_EACH_SKILL_RESULT', 13, { order: 200 }, (event) => {
         if (event.source == myId || event.owner == myId) {
             if (mod.settings.hitMe) {
-                event.skill.id = '';
+                event.skill.id = 0n;
                 return true;
             }
             if (mod.settings.hitDamage) {
-                event.damage = '';
+                event.value = 0n;
                 return true;
             }
         }
@@ -755,7 +755,7 @@ module.exports = function FpsUtils2(mod) {
 
 
 
-    mod.hook('S_ACTION_STAGE', 8, { order: 999 }, (event) => {
+    mod.hook('S_ACTION_STAGE', 9, { order: 999 }, (event) => {
         if (event.gameId !== myId && spawnedPlayers[event.gameId]) {
             if (event.target !== myId && (mod.settings.mode === 2 || hiddenUsers[event.gameId])) {
                 updateLoc(event);
