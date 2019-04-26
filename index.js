@@ -625,7 +625,7 @@ module.exports = function FpsUtils2(mod) {
     // ~~~* Hooks * ~~~
     // note: for skills, do if classes[event.templateId].blockedSkills !== 
 
-    mod.hook('S_LOGIN', 10, (event) => {
+    mod.hook('S_LOGIN', mod.majorPatchVersion >= 81 ? 13 : 12, (event) => {
         myId = event.gameId;
     });
 
