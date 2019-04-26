@@ -13,7 +13,7 @@
         "settingsMigrator": "setting_migration.js"
     },
     "servers": [
-        "https://raw.githubusercontent.com/codeagon/fps-utils/master/"
+        "https://raw.githubusercontent.com/Snugglez/fps-utils/master/"
     ],
     "dependencies": {
         "badgui": "https://raw.githubusercontent.com/codeagon/badGui/master/module.json"
