@@ -235,6 +235,7 @@ module.exports = function FpsUtils2(mod) {
                     { text: `&#09;<font color="${mod.settings.hitOther ? green : red}"> [Hide other players hit effects] </font><br>`, command: `fps hit other;fps gui` },
                     { text: `&#09;<font color="${mod.settings.hitDamage ? green : red}"> [Hide damage numbers] </font><br><br>`, command: `fps hit other;fps gui` },
                     { text: `<font color="${mod.settings.party ? green : red}"> [Hide players not in your party] </font><br>`, command: `fps party;fps gui` },
+                    { text: `<font color="${mod.settings.hideServants ? green : red}"> [Hide Servants (pets)] </font><br>`, command: `fps servants;fps gui` },
                     { text: `<font color="${mod.settings.hideAllSummons ? green : red}"> [Hide Summons] </font><br>`, command: `fps summons;fps gui` },
                     { text: `<font color="${mod.settings.keepMySummons ? green : red}"> [Hide your own summons] </font><br>`, command: `fps summons mine;fps gui` },
                     { text: `<font color="${mod.settings.hideFireworks ? green : red}"> [Hide Fireworks] </font><br>`, command: `fps fireworks;fps gui` },
@@ -733,14 +734,14 @@ module.exports = function FpsUtils2(mod) {
 
     // servants
     mod.hook('S_REQUEST_SPAWN_SERVANT', 1, { order: 1000 }, (e) => {
-      if (mod.settings.hideServants && myId !== e.ownerId) {
-        hiddenServants[e.gameId] = e;
-        return false;
-      }
+        if (mod.settings.hideServants && myId !== e.ownerId) {
+            hiddenServants[e.gameId] = e;
+            return false;
+        }
     });
 
     mod.hook('S_REQUEST_DESPAWN_SERVANT', 1, (e) => {
-      delete hiddenServants[e.gameId];
+        delete hiddenServants[e.gameId];
     });
 
     mod.hook('S_EACH_SKILL_RESULT', 13, { order: 200 }, (event) => {
