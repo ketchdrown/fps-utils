@@ -22,10 +22,11 @@ module.exports = function FpsUtils2(mod) {
         green = `#204ed3`,
         myId,
         alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
-        partyMembers = [],
         spawnedPlayers = {},
+        partyMembers = [],
         hiddenUsers = {},
-        hiddenNpcs = {};
+        hiddenNpcs = {},
+        hiddenServants = {};
     try {
         gui = new BadGui(mod);
         useGui = true
@@ -402,6 +403,10 @@ module.exports = function FpsUtils2(mod) {
                 message(`Hidden classes: ${mod.settings.hiddenClasses}`);
                 message(`Hidden roles: ${mod.settings.hiddenRoles}`);
                 break
+            case "servants":
+                mod.settings.hideServants = !mod.settings.hideServants;
+                message(`Hiding of summoned Pets and Partners ${mod.settings.hideServants ? 'en' : 'dis'}abled`);
+                break;
             case "summons":
                 switch (arg) {
                     case undefined:
@@ -724,6 +729,18 @@ module.exports = function FpsUtils2(mod) {
 
     mod.hook('S_DESPAWN_NPC', 3, (event) => {
         delete hiddenNpcs[event.gameId];
+    });
+
+    // servants
+    mod.hook('S_REQUEST_SPAWN_SERVANT', 1, { order: 1000 }, (e) => {
+      if (mod.settings.hideServants && myId !== e.ownerId) {
+        hiddenServants[e.gameId] = e;
+        return false;
+      }
+    });
+
+    mod.hook('S_REQUEST_DESPAWN_SERVANT', 1, (e) => {
+      delete hiddenServants[e.gameId];
     });
 
     mod.hook('S_EACH_SKILL_RESULT', 13, { order: 200 }, (event) => {

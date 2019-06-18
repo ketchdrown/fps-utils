@@ -11,6 +11,7 @@ const DefaultSettings = {
     "blacklistSkills": false,
     "blacklistAbnormies": false,
     "hideProjectiles": false,
+    "hideServants": false,
     "hiddenAbnormies": [],
     "blacklistProjectiles": false,
     "hiddenProjectiles": [270120, 270220, 270320, 270420, 270520, 270620, 270720, 270820, 270920, 271020],
