@@ -810,13 +810,13 @@ module.exports = function FpsUtils2(mod) {
         }
     });
 
-    mod.hook('S_FEARMOVE_STAGE', 1, (event) => { // we block these to prevent game crashes
-        if ((event.target !== myId && mod.settings.mode === 3) || hiddenUsers[event.target] || hiddenNpcs[event.target]) {
+    mod.hook('S_FEARMOVE_STAGE', 2, (event) => { // we block these to prevent game crashes
+        if ((event.gameId !== myId && mod.settings.mode === 3) || hiddenUsers[event.gameId] || hiddenNpcs[event.gameId]) {
             return false;
         }
     });
-    mod.hook('S_FEARMOVE_END', 1, (event) => {
-        if ((event.target !== myId && mod.settings.mode === 3) || hiddenUsers[event.target] || hiddenNpcs[event.target]) {
+    mod.hook('S_FEARMOVE_END', 2, (event) => {
+        if ((event.gameId !== myId && mod.settings.mode === 3) || hiddenUsers[event.gameId] || hiddenNpcs[event.gameId]) {
             return false;
         }
     });
