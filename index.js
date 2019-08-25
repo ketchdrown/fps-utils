@@ -733,7 +733,7 @@ module.exports = function FpsUtils2(mod) {
     });
 
     // servants
-    mod.hook('S_REQUEST_SPAWN_SERVANT', 1, { order: 1000 }, (e) => {
+    mod.hook('S_REQUEST_SPAWN_SERVANT', 3, { order: 1000 }, (e) => {
         if (mod.settings.hideServants && myId !== e.ownerId) {
             hiddenServants[e.gameId] = e;
             return false;
