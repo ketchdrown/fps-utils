@@ -591,7 +591,7 @@ module.exports = function FpsUtils2(mod) {
     function showPlayer(name) {
         for (let i in hiddenUsers) {
             if (hiddenUsers[i].name.toString().toLowerCase() === name.toLowerCase()) {
-                mod.send('S_SPAWN_USER', 13, hiddenUsers[i]);
+                mod.send('S_SPAWN_USER', 15, hiddenUsers[i]);
                 delete hiddenUsers[i];
                 return;
             }
@@ -612,7 +612,7 @@ module.exports = function FpsUtils2(mod) {
 
     function showAll() {
         for (let i in hiddenUsers) {
-            mod.send('S_SPAWN_USER', 13, hiddenUsers[i]);
+            mod.send('S_SPAWN_USER', 15, hiddenUsers[i]);
             delete hiddenUsers[i];
         }
     }
@@ -638,7 +638,7 @@ module.exports = function FpsUtils2(mod) {
     mod.game.on('leave_game', () => {
         clearInterval(NASux)
     })
-    mod.hook('S_SPAWN_USER', 13, { order: 9999 }, (event) => {
+    mod.hook('S_SPAWN_USER', 15, { order: 9999 }, (event) => {
         spawnedPlayers[event.gameId] = event;
         if (mod.settings.mode === 3 || mod.settings.blacklistedNames.includes(event.name.toString().toLowerCase()) || mod.settings.classes[getClass(event.templateId)].isHidden === true || (mod.settings.party && !partyMembers.includes(event.name))) { //includes should work!!
             hiddenUsers[event.gameId] = event;
@@ -658,7 +658,7 @@ module.exports = function FpsUtils2(mod) {
         }
     });
 
-    mod.hook('S_USER_EXTERNAL_CHANGE', 6, { order: 9999 }, (event) => {
+    mod.hook('S_USER_EXTERNAL_CHANGE', 7, { order: 9999 }, (event) => {
         if (mod.settings.showStyle && event.gameId !== myId) {
             event.weaponEnchant = 0;
             event.body = 0;
@@ -673,7 +673,7 @@ module.exports = function FpsUtils2(mod) {
         }
     });
 
-    mod.hook('S_SPAWN_USER', 13, { order: 99999, filter: { fake: null } }, (event) => {
+    mod.hook('S_SPAWN_USER', 15, { order: 99999, filter: { fake: null } }, (event) => {
         if (mod.settings.showStyle) {
             event.weaponEnchant = 0;
             event.body = 0;
@@ -833,7 +833,7 @@ module.exports = function FpsUtils2(mod) {
         }
     });
 
-    mod.hook('S_UNICAST_TRANSFORM_DATA', 4, { order: 99999 }, (event) => { //Thanks Trance!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+    mod.hook('S_UNICAST_TRANSFORM_DATA', 6, { order: 99999 }, (event) => { //Thanks Trance!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
         if (mod.settings.showStyle && event.gameId !== myId) { //Thanks Trance!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
             return false;//Thanks Trance!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
         }//Thanks Trance!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
