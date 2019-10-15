@@ -631,7 +631,7 @@ module.exports = function FpsUtils2(mod) {
     // ~~~* Hooks * ~~~
     // note: for skills, do if classes[event.templateId].blockedSkills !== 
 
-    mod.hook('S_LOGIN', mod.majorPatchVersion >= 81 ? 13 : 12, (event) => {
+    mod.hook('S_LOGIN', mod.majorPatchVersion >= 86 ? 14 : 13, (event) => {
         myId = event.gameId;
     });
 
@@ -744,7 +744,7 @@ module.exports = function FpsUtils2(mod) {
         delete hiddenServants[e.gameId];
     });
 
-    mod.hook('S_EACH_SKILL_RESULT', 13, { order: 200 }, (event) => {
+    mod.hook('S_EACH_SKILL_RESULT', mod.majorPatchVersion >= 86 ? 14 : 13, { order: 200 }, (event) => {
         if (event.source == myId || event.owner == myId) {
             if (mod.settings.hitMe) {
                 event.skill.id = 0n;
